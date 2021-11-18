@@ -230,6 +230,7 @@ class modStickersExport extends DolibarrModules
 		$this->export_sql_end[$r] .=' INNER JOIN '.MAIN_DB_PREFIX.'product_stock AS stock ON stock.fk_product = product.rowid ';
 		$this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'categorie_product AS product_category ON product_category.fk_product = product.rowid ';
 		$this->export_sql_end[$r] .=' JOIN ( SELECT DISTINCT sub_stock.reel as reel_stock FROM '.MAIN_DB_PREFIX.'product_stock AS  sub_stock WHERE sub_stock.reel IS NOT NULL AND sub_stock.reel > 0 ORDER BY sub_stock.reel) AS real_stock ON stock.reel >= real_stock.reel_stock';
+		$this->export_sql_order[$r] .=' GROUP BY real_stock.reel_stock, product.rowid ';
 		$this->export_sql_order[$r] .=' ORDER BY product.rowid';
 
 	}
